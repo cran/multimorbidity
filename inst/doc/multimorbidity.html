@@ -12,7 +12,7 @@
 
 <meta name="author" content="Wyatt P. Bensken" />
 
-<meta name="date" content="2021-08-19" />
+<meta name="date" content="2023-02-15" />
 
 <title>Working with the multimorbidity Package</title>
 
@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">Working with the <code>multimorbidity</code> Package</h1>
 <h4 class="author">Wyatt P. Bensken</h4>
-<h4 class="date">2021-08-19</h4>
+<h4 class="date">2023-02-15</h4>
 
 
 
@@ -155,47 +155,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="claims-data" class="section level2">
 <h2>Claims Data</h2>
 <p>This features 5 hypothetical patients and hypothetical claims across ICD-9 and ICD-10.</p>
-<pre><code>#&gt; # A tibble: 10 × 11
-#&gt;    patient_id sex   date_of_serv visit_type dx1   dx2   dx3   dx4   dx5   hcpcs
-#&gt;    &lt;fct&gt;      &lt;chr&gt; &lt;date&gt;       &lt;fct&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-#&gt;  1 1001       male  2012-02-14   ip         2768  4019  3310  29620 2630  E2201
-#&gt;  2 1001       male  2013-05-15   ip         486   2768  99591 4019  3310  E2201
-#&gt;  3 1001       male  2013-01-10   ot         40290 29620 4019  &lt;NA&gt;  &lt;NA&gt;  E2201
-#&gt;  4 1001       male  2013-04-02   ot         3310  57149 4019  &lt;NA&gt;  &lt;NA&gt;  E2201
-#&gt;  5 1001       male  2013-05-06   ot         2449  4019  486   &lt;NA&gt;  &lt;NA&gt;  E2201
-#&gt;  6 1001       male  2013-06-04   ot         486   4019  29620 &lt;NA&gt;  &lt;NA&gt;  E2201
-#&gt;  7 1001       male  2013-10-01   ot         24920 3310  4019  &lt;NA&gt;  &lt;NA&gt;  E2201
-#&gt;  8 1001       male  2013-11-05   ot         430   4019  29620 7930  &lt;NA&gt;  E2201
-#&gt;  9 1001       male  2014-02-01   ot         7241  3310  4019  430   &lt;NA&gt;  E2201
-#&gt; 10 1001       male  2014-03-15   ot         24920 4011  486   29620 39891 E2201
-#&gt; # … with 1 more variable: icd_version &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>claims <span class="ot">&lt;-</span> i9_i10_comb</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(claims, <span class="dv">10</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    patient_id  sex date_of_serv visit_type   dx1   dx2   dx3   dx4   dx5 hcpcs</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        1001 male   2012-02-14         ip  2768  4019  3310 29620  2630 E2201</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        1001 male   2013-05-15         ip   486  2768 99591  4019  3310 E2201</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        1001 male   2013-01-10         ot 40290 29620  4019  &lt;NA&gt;  &lt;NA&gt; E2201</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        1001 male   2013-04-02         ot  3310 57149  4019  &lt;NA&gt;  &lt;NA&gt; E2201</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        1001 male   2013-05-06         ot  2449  4019   486  &lt;NA&gt;  &lt;NA&gt; E2201</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6        1001 male   2013-06-04         ot   486  4019 29620  &lt;NA&gt;  &lt;NA&gt; E2201</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        1001 male   2013-10-01         ot 24920  3310  4019  &lt;NA&gt;  &lt;NA&gt; E2201</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8        1001 male   2013-11-05         ot   430  4019 29620  7930  &lt;NA&gt; E2201</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9        1001 male   2014-02-01         ot  7241  3310  4019   430  &lt;NA&gt; E2201</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       1001 male   2014-03-15         ot 24920  4011   486 29620 39891 E2201</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    icd_version</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1            9</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2            9</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3            9</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4            9</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5            9</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6            9</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7            9</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8            9</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9            9</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10           9</span></span></code></pre></div>
 </div>
 <div id="id-data" class="section level2">
 <h2>ID Data</h2>
 <p>This is our one-row-per-patient dataset which is only needed if we intend to use the function to limit our time window (<code>comorbidity_window</code>).</p>
-<pre><code>#&gt; # A tibble: 5 × 3
-#&gt;   patient_id date_of_interest10 date_of_interest9
-#&gt;   &lt;fct&gt;      &lt;date&gt;             &lt;date&gt;           
-#&gt; 1 1001       2021-06-04         2013-06-04       
-#&gt; 2 1002       2021-03-11         2013-03-11       
-#&gt; 3 1003       2021-08-02         2013-08-02       
-#&gt; 4 1004       2021-01-20         2013-01-20       
-#&gt; 5 1005       2021-02-14         2013-02-14</code></pre>
+<pre><code>#&gt;   patient_id date_of_interest10 date_of_interest9
+#&gt; 1       1001         2021-06-04        2013-06-04
+#&gt; 2       1002         2021-03-11        2013-03-11
+#&gt; 3       1003         2021-08-02        2013-08-02
+#&gt; 4       1004         2021-01-20        2013-01-20
+#&gt; 5       1005         2021-02-14        2013-02-14</code></pre>
 </div>
 </div>
 <div id="preparing-the-data" class="section level1">
 <h1>Preparing the Data</h1>
 <p>The first step is to “prepare” our data for the subsequent algorithms. The end-goal is to have a dataset that has 1 column with a patient ID, 1 column which contains the diagnosis code, and 1 column which will note if it’s ICD-9 (9) or ICD-10 (10). There are other variables that may be of interest depending on the specification including type (inpatient or outpatient) and date.</p>
 <p>The arguments used here are (in order): telling it the name of our data, specifying the ID variable, noting if it’s wide or long (long would be if the data is in our final format), the prefix for the diagnosis columns (dx1, dx2, dx3 would be “dx”), noting if our data include a HCPCS/CPT column, specifying the variable which notes if it’s ICD-9 or ICD-10, specifying the variable which tells us the type of visit (inpatient or outpatient), and finally specifying which column is the date.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prepared_data <span class="ot">&lt;-</span> <span class="fu">prepare_data</span>(<span class="at">dat =</span> claims,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">id =</span> patient_id,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">style =</span> <span class="st">&quot;wide&quot;</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">prefix_dx =</span> <span class="st">&quot;dx&quot;</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">hcpcs =</span> <span class="st">&quot;yes&quot;</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">prefix_hcpcs =</span> <span class="st">&quot;hcpcs&quot;</span>, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">version_var =</span> icd_version,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">type_name =</span> visit_type,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">date =</span> date_of_serv)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>prepared_data <span class="ot">&lt;-</span> <span class="fu">prepare_data</span>(<span class="at">dat =</span> claims,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">id =</span> patient_id,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">style =</span> <span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">prefix_dx =</span> <span class="st">&quot;dx&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">hcpcs =</span> <span class="st">&quot;yes&quot;</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">prefix_hcpcs =</span> <span class="st">&quot;hcpcs&quot;</span>, </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">version_var =</span> icd_version,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">type_name =</span> visit_type,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">date =</span> date_of_serv)</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 10 × 5
 #&gt;    patient_id claim_date dx    version type 
 #&gt;    &lt;fct&gt;      &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;
@@ -215,9 +223,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Oftentimes, we may be interested in limiting our claims to a specific window, such as the 1-year before diagnosis. To accommodate this, this package includes a function which will merge datasets and limit the claims to that window.</p>
 <p>In the example below we do the following: tell it the name of our ID dataset, the name of our claims data, specify our mutual ID variable, specify the variable name in the ID dataset which is our “date of interest”, specify the variable in the claims data which is our date of the claim, and specify the time window (in this example, pre only) we are interested in. There is a complementary argument for post (time_post), which is set to infinity as the default. In this example we are only taking the claims that occur within the 60 days before our date of interest as well as all claims after our date of interest. A common extension on this would be if we were interested in only those claims that occurred before diagnosis. In this case we could ignore the time_pre argument and set time_post = 0.</p>
 <p>Note: in this example we ignore date_of_interest10 but this could be used instead as we include both ICD-9 and ICD-10 claims and dates.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>limit_data <span class="ot">&lt;-</span> <span class="fu">comorbidity_window</span>(<span class="at">id_dat =</span> id, <span class="at">dat =</span> prepared_data, <span class="at">id =</span> patient_id, </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">id_date =</span> date_of_interest9, <span class="at">claims_date =</span> claim_date,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">time_pre =</span> <span class="dv">60</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>limit_data <span class="ot">&lt;-</span> <span class="fu">comorbidity_window</span>(<span class="at">id_dat =</span> id, <span class="at">dat =</span> prepared_data, <span class="at">id =</span> patient_id, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">id_date =</span> date_of_interest9, <span class="at">claims_date =</span> claim_date,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">time_pre =</span> <span class="dv">60</span>)</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 10 × 7
 #&gt;    patient_id claim_date dx    version type  date_of_interest10 date_of_interes…
 #&gt;    &lt;fct&gt;      &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt; &lt;date&gt;             &lt;date&gt;          
@@ -238,11 +246,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The arguments are similar and include: the dataset name, the variable of our patient ID, the variable of our diagnoses, the version (9 = ICD-9 only, 10 = ICD-10 only, and 19 = both), the variable which specifies the version of that diagnosis code (9 or 10), and whether or not we want to require there to be two outpatient visits for an individual to be positively coded with a comorbidity. While not frequently used, this adaptation may limit rule-out diagnoses and the package was built with this flexibility in mind.</p>
 <div id="elixhauser-comorbidity-index" class="section level2">
 <h2>Elixhauser Comorbidity Index</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>elix_data <span class="ot">&lt;-</span> <span class="fu">elixhauser</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">19</span>, <span class="at">version_var =</span> version, <span class="at">outpatient_two =</span> <span class="st">&quot;yes&quot;</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Message: Specifying that your data uses both ICD-9 and ICD-10 will result in only the Elixhauser comorbidities </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  which are compatible with ICD-9, as the changes and additions which are seen in </span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ICD-10 have, to date, not been back-mapped to ICD-9.</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Message: You have specified that for a comorbidity to be positvely coded, an individual must have two outpatient claims with it. Please make sure the levels of your variable denoting outpatient type are either &#39;ot&#39; or &#39;OT&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>elix_data <span class="ot">&lt;-</span> <span class="fu">elixhauser</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">19</span>, <span class="at">version_var =</span> version, <span class="at">outpatient_two =</span> <span class="st">&quot;yes&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Message: Specifying that your data uses both ICD-9 and ICD-10 will result in only the Elixhauser comorbidities </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  which are compatible with ICD-9, as the changes and additions which are seen in </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ICD-10 have, to date, not been back-mapped to ICD-9.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Message: You have specified that for a comorbidity to be positvely coded, an individual must have two outpatient claims with it. Please make sure the levels of your variable denoting outpatient type are either &#39;ot&#39; or &#39;OT&#39;</span></span></code></pre></div>
 <pre><code>#&gt; # A tibble: 5 × 34
 #&gt;   id      chf valve pulmcirc perivasc elix_htn_uc elix_htn_c  para neuro
 #&gt;   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -260,8 +268,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="charlson-comorbidity-index" class="section level2">
 <h2>Charlson Comorbidity Index</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>charlson_data <span class="ot">&lt;-</span> <span class="fu">charlson</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">19</span>, <span class="at">version_var =</span> version, <span class="at">outpatient_two =</span> <span class="st">&quot;yes&quot;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Message: You have specified that for a comorbidity to be positvely coded, an individual must have two outpatient claims with it. Please make sure the levels of your variable denoting outpatient type are either &#39;ot&#39; or &#39;OT&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>charlson_data <span class="ot">&lt;-</span> <span class="fu">charlson</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">19</span>, <span class="at">version_var =</span> version, <span class="at">outpatient_two =</span> <span class="st">&quot;yes&quot;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Message: You have specified that for a comorbidity to be positvely coded, an individual must have two outpatient claims with it. Please make sure the levels of your variable denoting outpatient type are either &#39;ot&#39; or &#39;OT&#39;</span></span></code></pre></div>
 <pre><code>#&gt; # A tibble: 5 × 19
 #&gt;   id    charlson_myocar charlson_chf charlson_periph_vasc charlson_cerebro
 #&gt;   &lt;fct&gt;           &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;            &lt;dbl&gt;
@@ -279,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="claims-frailty-index" class="section level2">
 <h2>Claims Frailty Index</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cfi_data <span class="ot">&lt;-</span> <span class="fu">cfi</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">19</span>, <span class="at">version_var =</span> version)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cfi_data <span class="ot">&lt;-</span> <span class="fu">cfi</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">19</span>, <span class="at">version_var =</span> version)</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 5 × 2
 #&gt;   id    frailty_index
 #&gt;   &lt;fct&gt;         &lt;dbl&gt;
@@ -291,7 +299,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="multimorbidity-weighted-index" class="section level2">
 <h2>Multimorbidity Weighted Index</h2>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mwi_data <span class="ot">&lt;-</span> <span class="fu">mwi</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">9</span>, <span class="at">version_var =</span> version)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mwi_data <span class="ot">&lt;-</span> <span class="fu">mwi</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">9</span>, <span class="at">version_var =</span> version)</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 5 × 2
 #&gt;   id       mwi
 #&gt;   &lt;fct&gt;  &lt;dbl&gt;
@@ -303,8 +311,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="nicholson-and-fortin-conditions" class="section level2">
 <h2>Nicholson and Fortin Conditions</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nf_data <span class="ot">&lt;-</span> <span class="fu">nicholsonfortin</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">19</span>, <span class="at">version_var =</span> version, <span class="at">outpatient_two =</span> <span class="st">&quot;yes&quot;</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Message: You have specified that for a comorbidity to be positvely coded, an individual must have two outpatient claims with it. Please make sure the levels of your variable denoting outpatient type must be either &#39;ot&#39; or &#39;OT&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>nf_data <span class="ot">&lt;-</span> <span class="fu">nicholsonfortin</span>(<span class="at">dat =</span> limit_data, <span class="at">id =</span> patient_id, <span class="at">dx =</span> dx, <span class="at">version =</span> <span class="dv">19</span>, <span class="at">version_var =</span> version, <span class="at">outpatient_two =</span> <span class="st">&quot;yes&quot;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Message: You have specified that for a comorbidity to be positvely coded, an individual must have two outpatient claims with it. Please make sure the levels of your variable denoting outpatient type must be either &#39;ot&#39; or &#39;OT&#39;</span></span></code></pre></div>
 <pre><code>#&gt; # A tibble: 5 × 21
 #&gt;   id      htn obesity diabetes  clrd hyperlipid cancer   cvd heartfail
 #&gt;   &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;

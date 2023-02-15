@@ -8,7 +8,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
-  % \VignetteDepends{devtools}
+  % \VignetteDepends{}
 ---
 
 ```{r, include = FALSE}
@@ -20,8 +20,7 @@ knitr::opts_chunk$set(
 
 ```{r setup, include = FALSE}
 
-devtools::load_all(".")
-library(tidyverse)
+library(multimorbidity)
 
 ```
 
@@ -37,12 +36,12 @@ We've created two sample datasets.
 
 This features 5 hypothetical patients and hypothetical claims across ICD-9 and ICD-10.
 
-```{r, include = FALSE}
+```{r}
 claims <- i9_i10_comb
 ```
 
 
-```{r, echo = FALSE}
+```{r}
 head(claims, 10)
 ```
 

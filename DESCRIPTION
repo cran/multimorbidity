@@ -1,7 +1,7 @@
 Package: multimorbidity
 Title: Harmonizing Various Comorbidity, Multimorbidity, and Frailty
         Measures
-Version: 0.5.0
+Version: 0.5.1
 Authors@R: 
     person(given = "Wyatt",
            family = "Bensken",
@@ -28,16 +28,16 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
-Imports: tidyverse, dplyr, lubridate, magrittr, stringr, rlang,
-        tidyselect, tidyr, devtools, sqldf, stats
+Imports: dplyr, lubridate, magrittr, stringr, rlang, tidyselect, tidyr,
+        sqldf,
 URL: https://github.com/WYATTBENSKEN/multimorbidity
 BugReports: https://github.com/WYATTBENSKEN/multimorbidity/issues
 Suggests: rmarkdown, knitr
 VignetteBuilder: knitr
 Depends: R (>= 3.5.0)
 NeedsCompilation: no
-Packaged: 2021-08-19 18:22:57 UTC; wyattbensken
+Packaged: 2023-02-15 13:49:25 UTC; wyattbensken
 Author: Wyatt Bensken [aut, cre] (<https://orcid.org/0000-0002-2597-9732>)
 Maintainer: Wyatt Bensken <wpb27@case.edu>
 Repository: CRAN
-Date/Publication: 2021-08-20 12:40:05 UTC
+Date/Publication: 2023-02-15 14:30:02 UTC
